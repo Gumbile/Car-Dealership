@@ -1,0 +1,72 @@
+body, html {
+    height: 100%;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  .bg {
+    /* The image used */
+    background-image: url("https://img.freepik.com/free-vector/geometric-gradient-futuristic-background_23-2149116406.jpg");
+  
+    /* Add the blur effect */
+    filter: brightness(1);
+    /* -webkit-filter: blur(8px); */
+  
+    /* Full height */
+    height: 100%;
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+.container.signInPage{
+    margin-top: 8%;
+    /* position: absolute; */
+    position: relative;
+  top: -753px;
+    
+    
+}
+.signInCard{
+    margin-top: 5px;
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+.signInImg{
+    margin: auto;
+    margin-bottom: 1rem;
+    display: block;
+    border-radius: 50%;
+    width: 70%;
+}
+/* .formHolder{
+    text-align: center;
+} */
+.passwordEntry{
+    margin-bottom: 1px!important;
+}
+.form-remember{
+    margin: auto;
+    text-align: center;
+    display: block;
+}
+.form-signup{
+    text-align: center;
+    padding-top: 15px;
+}
+a.formSignUp{
+    text-decoration: none;
+}
+a.formSignUp:hover{
+    text-decoration: underline;
+    color: #0036B1 ;
+}
+.form-text-up{
+    text-align: center;
+    color: white;
+}
