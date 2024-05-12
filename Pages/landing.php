@@ -4,8 +4,7 @@
 <head>
     <title>Lab2 - Trial</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Borel">
-    <link rel="stylesheet" href="site.css">
-    <script src="https://kit.fontawesome.com/75498cc036.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="http://localhost/Car-Dealership/style/landing.css">
 </head>
 
 <body>
@@ -15,8 +14,11 @@
             <li><a href="#">News</a></li>
             <li><a href="#">Contact</a></li>
             <li><a href="#">About</a></li>
-            <li class="topnav-right"><a href="http://localhost/Form/Registration%20Page/Email.php">Sign Up</a></li>
-            <li class="topnav-right"><a href="http://localhost/Form/Log-In%20Page/LogIn.php">Sign In</a></li>
+            <li class="topnav-right"><a href="http://localhost/Car-Dealership/pages/Registration/Email.php">Sign
+                    Up</a>
+            </li>
+            <li class="topnav-right"><a href="http://localhost/Car-Dealership/pages/LogIn.php">Sign
+                    In</a></li>
             <li class="dropdownIcon"><a href="" onclick="dropdownclick()">&#9776;</a></li>
         </ul>
     </nav>

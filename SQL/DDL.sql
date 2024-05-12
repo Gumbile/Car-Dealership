@@ -9,25 +9,26 @@ CREATE TABLE Cars (
     FOREIGN KEY (LocationID) REFERENCES Locations(LocationID)
 );
 
-CREATE TABLE Customers (
-    CustomerID INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE Users (
+    UserID INT AUTO_INCREMENT PRIMARY KEY,
     FirstName VARCHAR(255) NOT NULL,
     LastName VARCHAR(255) NOT NULL,
     Email VARCHAR(255) UNIQUE NOT NULL,
-    Username VARCHAR(20) UNIQUE NOT NULL
+    Username VARCHAR(20) UNIQUE NOT NULL,
+    Role_ VARCHAR(20) DEFAULT 'User'
 );
 
 CREATE TABLE Reservations (
     ReservationID INT AUTO_INCREMENT PRIMARY KEY,
     CarID INT NOT NULL,
-    CustomerID INT NOT NULL,
+    UserID INT NOT NULL,
     StartDate DATE NOT NULL,
     EndDate DATE NOT NULL,
     PickupLocationID INT NOT NULL,
     DropOffLocationID INT NOT NULL,
     Status_ VARCHAR(100) NOT NULL,
     FOREIGN KEY (CarID) REFERENCES Cars(CarID),
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
+    FOREIGN KEY (UserID) REFERENCES Customers(UserID),
     FOREIGN KEY (PickupLocationID) REFERENCES Locations(LocationID),
     FOREIGN KEY (DropOffLocationID) REFERENCES Locations(LocationID)
 );
