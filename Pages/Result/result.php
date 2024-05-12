@@ -46,7 +46,7 @@
         echo "<h1> Welcome " . $row["name"] . "</h1";
     } else {
         $message = urlencode("Wrong Email or Password!");
-        header("Location: ../Log-In Page/Login.php?message={$message}");
+        header("Location: ../Login.php?message={$message}");
         exit();
     }
 

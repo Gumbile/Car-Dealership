@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="bootstrap-5.0.2-dist/bootstrap-5.0.2-dist/css/bootstrap-grid.min.css" rel="stylesheet">
-    <link href="bootstrap-5.0.2-dist/bootstrap-5.0.2-dist//css/bootstrap.min.css" rel="stylesheet">
+    <link href="../bootstrap-5.0.2-dist/bootstrap-5.0.2-dist/css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="../bootstrap-5.0.2-dist/bootstrap-5.0.2-dist//css/bootstrap.min.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
     <title>Lab2 - Sign up</title>
 </head>
@@ -40,7 +40,7 @@
 
     if ($stmtInsert->num_rows > 0) {
         $message = urlencode('Email Already Exists');
-        header("Location: ../Registration Page/Email.php?message={$message}");
+        header("Location: ../Email.php?message={$message}");
         exit();
     } else {
 
@@ -53,7 +53,7 @@
             echo "<h1> Welcome " . $name . "</h1";
         } else {
             $message = urlencode('An Error has occurred');
-            header("Location: ../Registration Page/Email.php?message={$message}");
+            header("Location: ../Email.php?message={$message}");
             exit();
         }
 
