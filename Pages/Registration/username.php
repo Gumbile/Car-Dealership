@@ -16,6 +16,8 @@
 <body class="">
     <?php
     $email = $_POST["email"];
+    $fname = $_POST["fname"];
+    $lname = $_POST["lname"];
     ?>
     <div class="bg"></div>
 
@@ -52,6 +54,14 @@
                                         <div class="mb-3">
                                             <input type="hidden" name="email"
                                                 value="<?php echo htmlspecialchars($email); ?>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="hidden" name="fname"
+                                                value="<?php echo htmlspecialchars($fname); ?>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="hidden" name="lname"
+                                                value="<?php echo htmlspecialchars($lname); ?>">
                                         </div>
                                         <div class="mb-3">
                                             <div id="usernameEmpty" class="form-text text-danger visually-hidden">Empty

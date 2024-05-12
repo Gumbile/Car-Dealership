@@ -18,7 +18,7 @@
     $host = 'localhost';
     $username = 'FreePalestine';
     $passwordDB = 'FreePalestine';
-    $database = 'registration';
+    $database = 'car_dealership';
 
     // Create connection
     $conn = new mysqli($host, $username, $passwordDB, $database);
@@ -33,8 +33,8 @@
     $hashedPassword = md5($password);
 
     // Prepare statement
-    $stmt = $conn->prepare("SELECT * FROM user WHERE email = ? AND password = ?");
-    $stmt->bind_param("ss", $email, $hashedPassword);
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ? AND (password = ? or password = ?)");
+    $stmt->bind_param("sss", $email, $password, $hashedPassword);
 
     $stmt->execute();
 
@@ -43,7 +43,15 @@
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        echo "<h1> Welcome " . $row["name"] . "</h1";
+        session_start();
+        $_SESSION['user_email'] = $row["Email"];
+        $_SESSION['user_id'] = $row["UserID"];
+        $_SESSION['FirstName'] = $row["FirstName"];
+        if ($row["Role_"] == "Admin") {
+            header("Location: ../admin.php");
+        } else {
+            header("Location: ../user.php");
+        }
     } else {
         $message = urlencode("Wrong Email or Password!");
         header("Location: ../Login.php?message={$message}");

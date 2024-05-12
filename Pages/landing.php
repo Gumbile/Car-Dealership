@@ -265,6 +265,21 @@
             }
         }
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const message = urlParams.get('message');
+            if (message) {
+                alert(message)
+
+                urlParams.delete('message');
+
+                const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '');
+
+                history.pushState({}, '', newUrl);
+            }
+        });
+    </script>
 </body>
 
 </html>

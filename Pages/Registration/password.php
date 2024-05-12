@@ -17,6 +17,8 @@
     <?php
     $email = $_POST["email"];
     $username = $_POST["username"];
+    $fname = $_POST["fname"];
+    $lname = $_POST["lname"];
     ?>
     <div class="bg"></div>
 
@@ -45,6 +47,7 @@
                                         </div>
                                         <div id="passwordsField">
                                             <div class="mb-3">
+
                                                 <input placeholder="Password" type="password" class="form-control"
                                                     name="password" id="InputPassword1">
                                             </div>
@@ -55,6 +58,14 @@
                                             <div class="mb-3">
                                                 <input type="hidden" name="username"
                                                     value="<?php echo htmlspecialchars($username); ?>">
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="hidden" name="fname"
+                                                    value="<?php echo htmlspecialchars($fname); ?>">
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="hidden" name="lname"
+                                                    value="<?php echo htmlspecialchars($lname); ?>">
                                             </div>
                                             <div id="passwordEmpty"
                                                 class="form-text text-danger visually-hidden my-md-3">

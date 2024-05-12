@@ -18,7 +18,7 @@
     $host = 'localhost';
     $username = 'FreePalestine';
     $DBpassword = 'FreePalestine';
-    $database = 'registration';
+    $database = 'car_dealership';
 
     // Create connection
     $conn = new mysqli($host, $username, $DBpassword, $database);
@@ -31,13 +31,14 @@
     $name = $conn->real_escape_string($_POST['username']); // Example name
     $email = $conn->real_escape_string($_POST['email']); // Example email
     $password = $conn->real_escape_string($_POST['password']); // Example password, should be securely hashed
+    $fname = $conn->real_escape_string($_POST['fname']);
+    $lname = $conn->real_escape_string($_POST['lname']);
     $hashedPassword = md5($password);
 
-    $stmtInsert = $conn->prepare("SELECT * FROM user WHERE email = ?");
+    $stmtInsert = $conn->prepare("SELECT * FROM users WHERE email = ?");
     $stmtInsert->bind_param("s", $email);
     $stmtInsert->execute();
     $stmtInsert->store_result();
-
     if ($stmtInsert->num_rows > 0) {
         $message = urlencode('Email Already Exists');
         header("Location: ../Email.php?message={$message}");
@@ -45,12 +46,13 @@
     } else {
 
         // Prepare and bind
-        $stmt = $conn->prepare("INSERT INTO user (name, email, password) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $name, $email, $hashedPassword);
+        $stmt = $conn->prepare("INSERT INTO users (username, email, password, FirstName, LastName) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $name, $email, $hashedPassword, $fname, $lname);
 
 
         if ($stmt->execute()) {
-            echo "<h1> Welcome " . $name . "</h1";
+            $message = urlencode('Successful');
+            header("Location: ../landing.php?message={$message}");
         } else {
             $message = urlencode('An Error has occurred');
             header("Location: ../Email.php?message={$message}");

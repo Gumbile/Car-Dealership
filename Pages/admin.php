@@ -10,16 +10,17 @@ if (isset($_GET['logout'])) {
     $_SESSION['isLoggedIn'] = false;
     session_unset();
     session_destroy();
-    header("Location: result.php");
+    header("Location: landing.php");
     exit();
 }
 
 // Sample data for demonstration
-$adminName = isset($_SESSION['adminName']) ? $_SESSION['adminName'] : "Admin";
+$adminName = $_SESSION['FirstName'];
 ?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Admin Panel</title>
     <style>
@@ -70,8 +71,8 @@ $adminName = isset($_SESSION['adminName']) ? $_SESSION['adminName'] : "Admin";
         }
     </style>
 </head>
+
 <body>
-<?php if ($isLoggedIn): ?>
     <div class="sidebar">
         <h2>Admin Panel</h2>
         <ul>
@@ -87,17 +88,6 @@ $adminName = isset($_SESSION['adminName']) ? $_SESSION['adminName'] : "Admin";
         <p>This is your admin panel.</p>
         <!-- Admin panel content goes here -->
     </div>
-<?php else: ?>
-    <div class="content">
-        <h2>Login</h2>
-        <form method="post" action="result.php">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required><br><br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required><br><br>
-            <input type="submit" value="Login">
-        </form>
-    </div>
-<?php endif; ?>
 </body>
+
 </html>

@@ -58,6 +58,14 @@
                                             <div id="emptyEmail" class="form-text text-danger visually-hidden">Empty
                                                 Field</div>
                                         </div>
+                                        <div class="mb-3">
+                                            <input placeholder="First Name" type="text" name="fname"
+                                                class="form-control" id="Inputfname" aria-describedby="emailHelp">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input placeholder="Last Name" type="text" name="lname" class="form-control"
+                                                id="Inputlname" aria-describedby="emailHelp">
+                                        </div>
                                         <div class="d-grid gap-2 col-12 mx-auto">
                                             <input class="btn btn-primary" id="submit" type="submit"
                                                 value="Next"></input>
