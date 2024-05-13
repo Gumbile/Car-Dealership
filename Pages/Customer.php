@@ -149,7 +149,8 @@ include_once('db.php');
                                     echo "<td>{$row['LastName']}</td>";
                                     echo "<td>{$row['Email']}</td>";
                                     echo "<td>{$row['Username']}</td>";
-                                    echo "<td>{$row['PASSWORD']}</td>";
+                                    echo "<td>{$row['Password']}</td>"; // Corrected key to 'Password'
+
                                     echo "<td>{$row['Role_']}</td>";
                                     echo "<td>";
 
