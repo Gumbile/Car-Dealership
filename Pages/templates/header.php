@@ -17,6 +17,13 @@ $username = $_SESSION['username'];
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
+                    <a class="nav-link" href="payments.php">My payments</a>
+                </li>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
                     <!-- <a <?php if ($_SERVER['SCRIPT_NAME'] == "/car-dealership/pages/register.php") { ?>
                             class="nav-link active" <?php } else { ?> class="nav-link" <?php } ?> aria-current="page"
                         href="/car-dealership/pages/register.php">Register</a> -->
