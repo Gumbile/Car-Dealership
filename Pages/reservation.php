@@ -11,111 +11,33 @@ include_once('db.php');
 
 <head>
     <title>Admin Panel</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        .sidebar {
-            width: 250px;
-            height: 100%;
-            background-color: #333;
-            padding-top: 20px;
-            position: fixed;
-            top: 0;
-            left: 0;
-        }
-
-        .sidebar h2 {
-            color: #fff;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            padding: 10px;
-        }
-
-        .sidebar ul li a {
-            color: #fff;
-            text-decoration: none;
-            display: block;
-        }
-
-        .sidebar ul li a:hover {
-            background-color: #555;
-        }
-
-        .content {
-            margin-left: 250px;
-            padding: 20px;
-        }
-
-        /* Improved styling for table */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        th,
-        td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        /* Styling for buttons */
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-
-        .btn-primary {
-            background-color: #337ab7;
-        }
-
-        .btn-danger {
-            background-color: #d9534f;
-        }
-
-        .btn-success {
-            background-color: #5cb85c;
-        }
-
-        .btn:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <link href="bootstrap-5.0.2-dist/bootstrap-5.0.2-dist/css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="bootstrap-5.0.2-dist/bootstrap-5.0.2-dist//css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script></script>
+    <link rel="stylesheet" href="../css/style.css">
+    
 </head>
 
 <body>
     <div class="sidebar">
-        <h2>Admin Panel</h2>
-        <ul>
-            <li><a href="admin.php">Dashboard</a></li>
-            <li><a href="cars.php">Cars</a></li>
-            <li><a href="Customer.php">Users</a></li>
-            <li><a href="#">Reservations</a></li>
-            <li><a href="?logout">Logout</a></li>
-        </ul>
-    </div>
+            <h2>Admin Panel</h2>
+            <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link" href="admin.php">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Cars</a></li>
+                <li class="nav-item"><a class="nav-link" href="Customer.php">Users</a></li>
+                <li class="nav-item"><a class="nav-link" href="reservation.php">Reservations</a></li>
+                <li class="nav-item"><a class="nav-link" href="?logout">Logout</a></li>
+            </ul>
+        </div>
+
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+        </style>
     <div class="content">
         <div class="container">
             <div class="row">

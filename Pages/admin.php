@@ -133,6 +133,13 @@ function getDailyPayments($startDate, $endDate)
 
 <head>
     <title>Admin Panel</title>
+    <link href="bootstrap-5.0.2-dist/bootstrap-5.0.2-dist/css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="bootstrap-5.0.2-dist/bootstrap-5.0.2-dist//css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script></script>
+    <link rel="stylesheet" href="../css/style.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -244,6 +251,7 @@ function getDailyPayments($startDate, $endDate)
             <li><a href="cars.php">Cars</a></li>
             <li><a href="Customer.php">Users</a></li>
             <li><a href="reservation.php">Reservations</a></li>
+            <li><a href="search.php">Search</a></li>
             <li><a href="?logout">Logout</a></li>
         </ul>
     </div>
@@ -263,8 +271,8 @@ function getDailyPayments($startDate, $endDate)
                 <?php
                 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['startDate1']) && isset($_POST['endDate1']) && !empty($_POST['startDate1'])) {
                     // Process the form submission and generate the report
-                    $startDate = $_POST['startDate'];
-                    $endDate = $_POST['endDate'];
+                    $startDate = $_POST['startDate1'];
+                    $endDate = $_POST['endDate1'];
                     $reservations = getAllReservations($startDate, $endDate);
                 
                     // Display the report

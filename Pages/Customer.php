@@ -131,7 +131,6 @@ include_once ('db.php');
                                 <th>Last Name</th>
                                 <th>Email</th>
                                 <th>Username</th>
-                                <th>Password</th>
                                 <th>Role</th>
                                 <th>Actions</th> <!-- Added column for actions -->
                             </tr>
@@ -149,7 +148,6 @@ include_once ('db.php');
                                     echo "<td>{$row['LastName']}</td>";
                                     echo "<td>{$row['Email']}</td>";
                                     echo "<td>{$row['Username']}</td>";
-                                    echo "<td>{$row['PASSWORD']}</td>"; // Corrected key to 'Password'
                             
                                     echo "<td>{$row['Role_']}</td>";
                                     echo "<td>";

@@ -10,7 +10,7 @@
     <link href="bootstrap-5.0.2-dist/bootstrap-5.0.2-dist/css/bootstrap-grid.min.css" rel="stylesheet">
     <link href="bootstrap-5.0.2-dist/bootstrap-5.0.2-dist//css/bootstrap.min.css" rel="stylesheet">
     <link href="http://localhost/Car-Dealership/style/login.css" rel="stylesheet">
-    <title>Lab2 - Login</title>
+    <title>Login</title>
 </head>
 
 <body class="">
