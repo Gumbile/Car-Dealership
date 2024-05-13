@@ -86,67 +86,127 @@ if (isset($_GET['logout'])) {
     <div class="content">
 
 
-        <h3>Advanced Search</h3>
-        <form action="" method="get">
-            <label for="searchType">Search By:</label>
-            <select name="searchType" id="searchType" required>
-                <option value="car">Car</option>
-                <option value="user">User</option>
-                <option value="reservation">Reservation</option>
-            </select>
-            <br><br>
-            <label for="searchTerm">Search Term:</label>
-            <input type="text" name="searchTerm" id="searchTerm" required>
-            <button class="btn btn-primary" type="submit">Search</button>
-        </form>
+    <h3>Advanced Search</h3>
+<form action="search.php" method="get" id="searchForm">
+    <label for="searchType">Search By:</label>
+    <select name="searchType" id="searchType" onchange="showFormFields()" required>
+        <option value="car">Car</option>
+        <option value="user">User</option>
+        <option value="reservation">Reservation</option>
+    </select>
+    <br><br>
+    <div id="carFields" style="display: none;">
+        <label for="carModel">Model:</label>
+        <input type="text" name="carModel" id="carModel">
+        <br><br>
+        <label for="carYear">Year:</label>
+        <input type="text" name="carYear" id="carYear">
+        <br><br>
+        <label for="carPlateID">Plate ID:</label>
+        <input type="text" name="carPlateID" id="carPlateID">
+        <br><br>
+        <label for="carBaseRate">Base Rate:</label>
+        <input type="text" name="carBaseRate" id="carBaseRate">
+    </div>
+    <div id="userFields" style="display: none;">
+        <label for="userFirstName">First Name:</label>
+        <input type="text" name="userFirstName" id="userFirstName">
+        <br><br>
+        <label for="userLastName">Last Name:</label>
+        <input type="text" name="userLastName" id="userLastName">
+        <br><br>
+        <label for="userEmail">Email:</label>
+        <input type="text" name="userEmail" id="userEmail">
+        <br><br>
+        <label for="userUsername">Username:</label>
+        <input type="text" name="userUsername" id="userUsername">
+    </div>
+    <div id="reservationFields" style="display: none;">
+        <label for="reservationStartDate">Start Date:</label>
+        <input type="text" name="reservationStartDate" id="reservationStartDate">
+    </div>
+    <br><br>
+    <button class="btn btn-primary" type="submit">Search</button>
+</form>
+
+<script>
+    carFields.style.display = "block";
+    function showFormFields() {
+        var selectedValue = document.getElementById("searchType").value;
+        var carFields = document.getElementById("carFields");
+        var userFields = document.getElementById("userFields");
+        var reservationFields = document.getElementById("reservationFields");
+
+        carFields.style.display = "none";
+        userFields.style.display = "none";
+        reservationFields.style.display = "none";
+
+        if (selectedValue === "car") {
+            carFields.style.display = "block";
+        } else if (selectedValue === "user") {
+            userFields.style.display = "block";
+        } else if (selectedValue === "reservation") {
+            reservationFields.style.display = "block";
+        }
+    }
+</script>
+
 
         <?php
-        if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['searchType']) && isset($_GET['searchTerm'])) {
+        if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['searchType'])) {
             $searchType = $_GET['searchType'];
-            $searchTerm = $_GET['searchTerm'];
 
-            switch ($searchType) {
-                case 'car':
-                    $query = "SELECT car.Model, car.Year_, car.PlateID, car.BaseRate, user.FirstName, user.LastName, user.Email, user.Username, reservations.StartDate, reservations.EndDate,  locations.LocationName
-                              FROM Cars car
-                              JOIN Reservations reservations ON car.CarID = reservations.CarID
-                              JOIN Users user ON reservations.UserID = user.UserID
-                              JOIN Locations locations ON car.LocationID = locations.LocationID
-                              WHERE car.Model LIKE '%$searchTerm%'
-                              OR car.Year_ LIKE '%$searchTerm%'
-                              OR car.PlateID LIKE '%$searchTerm%'
-                              OR car.BaseRate LIKE '%$searchTerm%'";
-                    break;
-
-                case 'user':
-                    $query = "SELECT car.Model, car.Year_, car.PlateID, car.BaseRate, user.FirstName, user.LastName, user.Email, user.Username, reservations.StartDate, reservations.EndDate, locations.LocationName
-                              FROM Cars car
-                              JOIN Reservations reservations ON car.CarID = reservations.CarID
-                              JOIN Users user ON reservations.UserID = user.UserID
-                              JOIN Locations locations ON car.LocationID = locations.LocationID
-                              WHERE user.FirstName LIKE '%$searchTerm%'
-                              OR user.LastName LIKE '%$searchTerm%'
-                              OR user.Email LIKE '%$searchTerm%'
-                              OR user.Username LIKE '%$searchTerm%'";
-                    break;
-
-                case 'reservation':
-                    $query = "SELECT car.Model, car.Year_, car.PlateID, car.BaseRate, user.FirstName, user.LastName, user.Email, user.Username, reservations.StartDate, reservations.EndDate,  locations.LocationName
-                              FROM Cars car
-                              JOIN Reservations reservations ON car.CarID = reservations.CarID
-                              JOIN Users user ON reservations.UserID = user.UserID
-                              JOIN Locations locations ON car.LocationID = locations.LocationID
-                              WHERE reservations.StartDate LIKE '%$searchTerm%'";
-                    break;
-
-                default:
-                    echo "Invalid search type";
-                    break;
-            }
-
-
+            $query = "SELECT car.Model, car.Year_, car.PlateID, car.BaseRate, user.FirstName, user.LastName, user.Email, user.Username, reservations.StartDate, reservations.EndDate, locations.LocationName
+                      FROM Cars car
+                      JOIN Reservations reservations ON car.CarID = reservations.CarID
+                      JOIN Users user ON reservations.UserID = user.UserID
+                      JOIN Locations locations ON car.LocationID = locations.LocationID
+                      WHERE 1=1"; // Always true to start building the WHERE clause
+        
+        switch ($searchType) {
+            case 'car':
+                if (!empty($_GET["carModel"])) {
+                    $query .= " AND car.Model LIKE '%" . trim($_GET["carModel"]) . "%'";
+                }
+                if (!empty($_GET["carBaseRate"])) {
+                    $query .= " AND car.BaseRate = " . trim($_GET["carBaseRate"]);
+                }
+                if (!empty($_GET["carYear"])) {
+                    $query .= " AND car.Year_ = " . trim($_GET["carYear"]);
+                }
+                
+                break;
+        
+            case 'user':
+                if (!empty($_GET["userFirstName"])) {
+                    $query .= " AND user.FirstName LIKE '%" . trim($_GET["userFirstName"]) . "%'";
+                }
+                if (!empty($_GET["userLastName"])) {
+                    $query .= " AND user.LastName LIKE '%" . trim($_GET["userLastName"]) . "%'";
+                }
+                if (!empty($_GET["userEmail"])) {
+                    $query .= " AND user.Email LIKE '%" . trim($_GET["userEmail"]) . "%'";
+                }
+                if (!empty($_GET["userUsername"])) {
+                    $query .= " AND user.Username LIKE '%" . trim($_GET["userUsername"]) . "%'";
+                }
+                // Add conditions for other user attributes
+                break;
+        
+            case 'reservation':
+                if (!empty($_GET["reservationStartDate"])) {
+                    $query .= " AND reservations.StartDate LIKE '%" . trim($_GET["reservationStartDate"]) . "%'";
+                }
+                break;
+        
+            default:
+                echo "Invalid search type";
+                break;
+        }
+        
+        
             $result = mysqli_query($conn, $query);
-
+        
             if (mysqli_num_rows($result) > 0) {
                 echo "<h4>Search Results</h4>";
                 echo "<table class='table'>";
@@ -172,6 +232,7 @@ if (isset($_GET['logout'])) {
                 echo "<p>No results found.</p>";
             }
         }
+        
         ?>
     </div>
 

@@ -1,29 +1,3 @@
-<?php
-// Start the session to access session variables
-session_start();
-
-// Check if the user is logged in
-if (!isset($_SESSION['user_id'])) {
-    // Redirect to the login page if not logged in
-    header("Location: login.php");
-    exit;
-}
-
-// Include the database connection
-require 'config/db_connect.php';
-
-// Fetch reserved cars for the current user
-$sql = "SELECT Model, Year_, PlateID, BaseRate FROM Cars
-        INNER JOIN Reservations ON Cars.CarID = Reservations.CarID
-        INNER JOIN Locations ON Cars.LocationID = Locations.LocationID
-        WHERE Reservations.UserID = " . $_SESSION['user_id'] . "
-        ORDER BY Reservations.StartDate DESC";
-$result = $conn->query($sql);
-$sqlPayments = "SELECT Amount, PaymentDate, PaymentMethod FROM Payments
-                INNER JOIN Reservations ON Payments.ReservationID = Reservations.ReservationID
-                WHERE Reservations.UserID = " . $_SESSION['user_id'];
-$resultPayments = $conn->query($sqlPayments);
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,6 +13,31 @@ $resultPayments = $conn->query($sqlPayments);
 
 <body>
     <?php include("templates/header.php"); ?>
+    <?php
+
+        // Check if the user is logged in
+        if (!isset($_SESSION['user_id'])) {
+            // Redirect to the login page if not logged in
+            header("Location: login.php");
+            exit;
+        }
+
+        // Include the database connection
+        require 'config/db_connect.php';
+
+        // Fetch reserved cars for the current user
+        $sql = "SELECT Model, Year_, PlateID, BaseRate FROM Cars
+                INNER JOIN Reservations ON Cars.CarID = Reservations.CarID
+                INNER JOIN Locations ON Cars.LocationID = Locations.LocationID
+                WHERE Reservations.UserID = " . $_SESSION['user_id'] . "
+                ORDER BY Reservations.StartDate DESC";
+        $result = $conn->query($sql);
+        $sqlPayments = "SELECT Amount, PaymentDate, PaymentMethod FROM Payments
+                        INNER JOIN Reservations ON Payments.ReservationID = Reservations.ReservationID
+                        WHERE Reservations.UserID = " . $_SESSION['user_id'];
+        $resultPayments = $conn->query($sqlPayments);
+        ?>
+
     <div class="container">
         <h2>Reserved Cars</h2>
         <table class="table">
