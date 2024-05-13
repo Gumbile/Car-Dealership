@@ -22,7 +22,7 @@ $adminName = $_SESSION['FirstName'];
 // Function to retrieve all reservations within a specified period
 
 
-
+// make it natural join with cars and user
 function getAllReservations($startDate, $endDate)
 {
     global $conn;
@@ -136,6 +136,7 @@ function getDailyPayments($startDate, $endDate)
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f4f4f4;
         }
 
         .sidebar {
@@ -202,18 +203,33 @@ function getDailyPayments($startDate, $endDate)
             color: #888;
         }
 
-        /* New styles for improved presentation */
-
-        .content ul li .reservation-info {
-            margin-top: 10px;
+        input[type="text"],
+        input[type="date"],
+        select {
+            padding: 8px;
+            margin: 5px 0 20px;
+            display: block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 95%;
         }
 
-        .content ul li .car-info {
-            margin-top: 10px;
+        .button {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
         }
 
-        .content ul li .payment-info {
-            margin-top: 10px;
+        .button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
@@ -233,101 +249,120 @@ function getDailyPayments($startDate, $endDate)
     <div class="content">
         <h2>Welcome, <?php echo $adminName; ?>!</h2>
 
-
         <h3>Reports</h3>
         <ul>
             <li>
                 <h4>All Reservations within a Specified Period</h4>
-                <div class="reservation-info">
-                    <?php
-                    // Specify the start date and end date for the report
-                    $startDate = '2024-05-01';
-                    $endDate = '2024-05-31';
-
-                    // Call the function to retrieve all reservations within the specified period
+                <form action="" method="get">
+                    <input type="date" name="startDate" required>
+                    <input type="date" name="endDate" required>
+                    <button class="button" type="submit">Fetch Report</button>
+                </form>
+                <?php
+                if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['startDate']) && isset($_GET['endDate'])) {
+                    // Process the form submission and generate the report
+                    $startDate = $_GET['startDate'];
+                    $endDate = $_GET['endDate'];
                     $reservations = getAllReservations($startDate, $endDate);
 
-                    // Display the reservation information
+                    // Display the report
+                    echo "<div>";
                     foreach ($reservations as $reservation) {
-                        echo "Reservation ID: {$reservation['ReservationID']}, Car ID: {$reservation['CarID']}, User ID: {$reservation['UserID']}, Start Date: {$reservation['StartDate']}, End Date: {$reservation['EndDate']}, Pickup Location ID: {$reservation['PickupLocationID']}, Drop-Off Location ID: {$reservation['DropOffLocationID']}, Status: {$reservation['Status_']} <br>";
+                        echo "Reservation ID: {$reservation['ReservationID']}, Car ID: {$reservation['CarID']}, User ID: {$reservation['UserID']}, Start Date: {$reservation['StartDate']}, End Date: {$reservation['EndDate']}, Pickup Location ID: {$reservation['PickupLocationID']}, Drop-Off Location ID: {$reservation['DropOffLocationID']} <br>";
                     }
-                    ?>
-                </div>
+                    echo "</div>";
+                }
+                ?>
             </li>
             <li>
                 <h4>All Reservations of a Car within a Specified Period</h4>
-                <div class="reservation-info">
-                    <?php
-                    // Specify the car ID, start date, and end date for the report
-                    $carID = 1;
-                    $startDate = '2024-05-01';
-                    $endDate = '2024-05-31';
-
-                    // Call the function to retrieve all reservations of the specified car within the specified period
+                <form action="" method="get">
+                    <input type="text" name="carID" placeholder="Enter Car ID" required>
+                    <input type="date" name="startDate" required>
+                    <input type="date" name="endDate" required>
+                    <button class="button" type="submit">Fetch Report</button>
+                </form>
+                <?php
+                if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['carID']) && isset($_GET['startDate']) && isset($_GET['endDate'])) {
+                    // Process the form submission and generate the report
+                    $carID = $_GET['carID'];
+                    $startDate = $_GET['startDate'];
+                    $endDate = $_GET['endDate'];
                     $carReservations = getCarReservations($carID, $startDate, $endDate);
 
-                    // Display the reservation information
+                    // Display the report
+                    echo "<div>";
                     foreach ($carReservations as $reservation) {
-                        echo "Reservation ID: {$reservation['ReservationID']}, Car ID: {$reservation['CarID']}, User ID: {$reservation['UserID']}, Start Date: {$reservation['StartDate']}, End Date: {$reservation['EndDate']}, Pickup Location ID: {$reservation['PickupLocationID']}, Drop-Off Location ID: {$reservation['DropOffLocationID']}, Status: {$reservation['Status_']} <br>";
+                        echo "Reservation ID: {$reservation['ReservationID']}, Car ID: {$reservation['CarID']}, User ID: {$reservation['UserID']}, Start Date: {$reservation['StartDate']}, End Date: {$reservation['EndDate']}, Pickup Location ID: {$reservation['PickupLocationID']}, Drop-Off Location ID: {$reservation['DropOffLocationID']} <br>";
                     }
-                    ?>
-                </div>
+                    echo "</div>";
+                }
+                ?>
             </li>
             <li>
                 <h4>Status of All Cars on a Specific Day</h4>
-                <div class="car-info">
-                    <?php
-                    // Specify the date for the report
-                    $date = '2024-05-13';
+                <form action="" method="get">
+                    <input type="date" name="date" required>
+                    <button class="button" type="submit">Fetch Report</button>
+                </form>
+                <?php
+                if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['date'])) {
+                    // Process the form submission and generate the report
+                    $date = $_GET['date'];
+                    $carsStatus = getCarsStatus($date);
 
-                    // Call the function to retrieve the status of all cars on the specified day
-                    $carStatus = getCarsStatus($date);
-
-                    // Display the car status
-                    foreach ($carStatus as $car) {
+                    // Display the report
+                    echo "<div>";
+                    foreach ($carsStatus as $car) {
                         echo "Car ID: {$car['CarID']}, Model: {$car['Model']}, Year: {$car['Year_']}, Plate ID: {$car['PlateID']}, Status: {$car['Status_']} <br>";
                     }
-                    ?>
-                </div>
+                    echo "</div>";
+                }
+                ?>
             </li>
             <li>
                 <h4>All Reservations of a Specific Customer</h4>
-                <div class="reservation-info">
-                    <?php
-                    // Specify the customer ID for the report
-                    $customerID = 1;
-
-                    // Call the function to retrieve all reservations of the specified customer
+                <form action="" method="get">
+                    <input type="text" name="customerID" placeholder="Enter Customer ID" required>
+                    <button class="button" type="submit">Fetch Report</button>
+                </form>
+                <?php
+                if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['customerID'])) {
+                    // Process the form submission and generate the report
+                    $customerID = $_GET['customerID'];
                     $customerReservations = getCustomerReservations($customerID);
 
-                    // Display the reservation information
+                    // Display the report
+                    echo "<div>";
                     foreach ($customerReservations as $reservation) {
-                        echo "Reservation ID: {$reservation['ReservationID']}, Car ID: {$reservation['CarID']}, User ID: {$reservation['UserID']}, Start Date: {$reservation['StartDate']}, End Date: {$reservation['EndDate']}, Pickup Location ID: {$reservation['PickupLocationID']}, Drop-Off Location ID: {$reservation['DropOffLocationID']}, Status: {$reservation['Status_']} <br>";
+                        echo "Reservation ID: {$reservation['ReservationID']}, Car ID: {$reservation['CarID']}, User ID: {$reservation['UserID']}, Start Date: {$reservation['StartDate']}, End Date: {$reservation['EndDate']}, Pickup Location ID: {$reservation['PickupLocationID']}, Drop-Off Location ID: {$reservation['DropOffLocationID']} <br>";
                     }
-                    ?>
-                </div>
+                    echo "</div>";
+                }
+                ?>
             </li>
             <li>
                 <h4>Daily Payments within a Specific Period</h4>
-                <div class="payment-info">
-                    <?php
-                    // Specify the start date and end date for the report
-                    $startDate = '2024-05-01';
-                    $endDate = '2024-05-31';
-
-                    // Call the function to retrieve the daily payments within the specified period
+                <form action="" method="get">
+                    <input type="date" name="startDate" required>
+                    <input type="date" name="endDate" required>
+                    <button class="button" type="submit">Fetch Report</button>
+                </form>
+                <?php
+                if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['startDate']) && isset($_GET['endDate'])) {
+                    // Process the form submission and generate the report
+                    $startDate = $_GET['startDate'];
+                    $endDate = $_GET['endDate'];
                     $dailyPayments = getDailyPayments($startDate, $endDate);
 
-                    // Display the payment information
+                    // Display the report
+                    echo "<div>";
                     foreach ($dailyPayments as $payment) {
                         echo "Payment ID: {$payment['PaymentID']}, Reservation ID: {$payment['ReservationID']}, Amount: {$payment['Amount']}, Payment Date: {$payment['PaymentDate']}, Payment Method: {$payment['PaymentMethod']} <br>";
                     }
-                    ?>
-                </div>
+                    echo "</div>";
+                }
+                ?>
             </li>
         </ul>
-
     </div>
-</body>
-
-</html>

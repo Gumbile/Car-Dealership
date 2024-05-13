@@ -133,7 +133,6 @@ include_once('db.php');
                                 <th>End Date</th>
                                 <th>Pickup LocationID</th>
                                 <th>Drop-off LocationID</th>
-                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -153,19 +152,7 @@ include_once('db.php');
                                     echo "<td>{$row['EndDate']}</td>";
                                     echo "<td>{$row['PickupLocationID']}</td>";
                                     echo "<td>{$row['DropOffLocationID']}</td>";
-                                    echo "<td>";
 
-                                    // Add conditional statements to vary colors based on status
-                                    $status = $row['Status_'];
-                                    if ($status == 'Available') {
-                                        echo "<span style='background-color: green; color: white; padding: 5px;'>$status</span>";
-                                    } elseif ($status == 'Rented') {
-                                        echo "<span style='background-color: orange; color: white; padding: 5px;'>$status</span>";
-                                    } elseif ($status == 'Out of Service') {
-                                        echo "<span style='background-color: red; color: white; padding: 5px;'>$status</span>";
-                                    }
-
-                                    echo "</td>";
                                     echo "<td>";
                                     echo "<a href='edit_reservation.php?reservationid={$row['ReservationID']}' class='btn btn-primary'>Update</a>";
                                     echo "<a href='delete_reservation.php?reservationid={$row['ReservationID']}' class='btn btn-danger'>Delete</a>";

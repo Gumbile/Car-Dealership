@@ -1,6 +1,12 @@
-CREATE SCHEMA CAR_DEALERSHIP
+CREATE SCHEMA Black
+CREATE TABLE Locations (
+    LocationID INT AUTO_INCREMENT PRIMARY KEY,
+    LocationName VARCHAR(255) NOT NULL,
+    Country VARCHAR(100) NOT NULL,
+    City VARCHAR(100) NOT NULL
+);
 CREATE TABLE Cars (
-         INT AUTO_INCREMENT PRIMARY KEY,
+     CarID   INT AUTO_INCREMENT PRIMARY KEY,
     Model VARCHAR(255) NOT NULL,
     Year_ INT NOT NULL,
     PlateID VARCHAR(50) UNIQUE NOT NULL,
@@ -16,6 +22,7 @@ CREATE TABLE Users (
     LastName VARCHAR(255) NOT NULL,
     Email VARCHAR(255) UNIQUE NOT NULL,
     Username VARCHAR(20) UNIQUE NOT NULL,
+    `Password` VARCHAR(255) NOT NULL,
     Role_ VARCHAR(20) DEFAULT 'User'
 );
 
@@ -27,9 +34,8 @@ CREATE TABLE Reservations (
     EndDate DATE NOT NULL,
     PickupLocationID INT NOT NULL,
     DropOffLocationID INT NOT NULL,
-    Status_ VARCHAR(100) NOT NULL,
     FOREIGN KEY (CarID) REFERENCES Cars(CarID),
-    FOREIGN KEY (UserID) REFERENCES Customers(UserID),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
     FOREIGN KEY (PickupLocationID) REFERENCES Locations(LocationID),
     FOREIGN KEY (DropOffLocationID) REFERENCES Locations(LocationID)
 );
@@ -43,9 +49,3 @@ CREATE TABLE Payments (
     FOREIGN KEY (ReservationID) REFERENCES Reservations(ReservationID)
 );
 
-CREATE TABLE Locations (
-    LocationID INT AUTO_INCREMENT PRIMARY KEY,
-    LocationName VARCHAR(255) NOT NULL,
-    Country VARCHAR(100) NOT NULL,
-    City VARCHAR(100) NOT NULL,
-);
