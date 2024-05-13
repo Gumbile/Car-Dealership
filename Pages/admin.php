@@ -3,7 +3,9 @@ session_start();
 include_once('db.php');
 // Check if the user is logged in
 $isLoggedIn = isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'];
-
+if($_SESSION['role'] != "Admin"){
+    header("Location: http://localhost/Car-Dealership/pages/user.php");
+}
 // Check for logout request
 if (isset($_GET['logout'])) {
     // Perform logout operation
@@ -254,24 +256,29 @@ function getDailyPayments($startDate, $endDate)
             <li>
                 <h4>All Reservations within a Specified Period</h4>
                 <form action="" method="post">
-                    <input type="date" name="startDate" required>
-                    <input type="date" name="endDate" required>
+                    <input type="date" name="startDate1" required>
+                    <input type="date" name="endDate1" required>
                     <button class="button" type="submit">Fetch Report</button>
                 </form>
                 <?php
-                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['startDate']) && isset($_POST['endDate'])) {
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['startDate1']) && isset($_POST['endDate1']) && !empty($_POST['startDate1'])) {
                     // Process the form submission and generate the report
                     $startDate = $_POST['startDate'];
                     $endDate = $_POST['endDate'];
                     $reservations = getAllReservations($startDate, $endDate);
-
+                
                     // Display the report
                     echo "<div>";
                     foreach ($reservations as $reservation) {
                         echo "Reservation ID: {$reservation['ReservationID']}, Car ID: {$reservation['CarID']}, User ID: {$reservation['UserID']}, Start Date: {$reservation['StartDate']}, End Date: {$reservation['EndDate']}, Pickup Location ID: {$reservation['PickupLocationID']}, Drop-Off Location ID: {$reservation['DropOffLocationID']} <br>";
                     }
                     echo "</div>";
+                    // echo "<meta http-equiv='refresh' content='0'>";
+                } else {
+                    // Display an empty div
+                    echo "<div></div>";
                 }
+                $_SESSION["rand"] = rand();
                 ?>
             </li>
             <li>
@@ -366,3 +373,10 @@ function getDailyPayments($startDate, $endDate)
             </li>
         </ul>
     </div>
+    <script>
+        if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
+    </body>
+</html>

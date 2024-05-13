@@ -49,8 +49,10 @@
         $_SESSION['FirstName'] = $row["FirstName"];
         $_SESSION['username'] = $row["Username"];
         if ($row["Role_"] == "Admin") {
+            $_SESSION['role'] = "Admin";
             header("Location: ../admin.php");
         } else {
+            $_SESSION['role'] = "User";
             header("Location: ../user.php");
         }
     } else {

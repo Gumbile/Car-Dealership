@@ -12,6 +12,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $endDate = $_POST['endDate'];
     $pickupLocationID = $_POST['locationID'];
     $dropoffLocationID = $_POST['dropoffLocationID'];
+    $paymentMethod = $_POST['paymentMethod'];
+    $amountPaid = $_POST['totalAmount'];
+
 
     // Connect to your database
     require 'config/db_connect.php';
@@ -26,11 +29,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Insert reservation into Reservations table
-    $reservation_query = "INSERT INTO Reservations (CarID, UserID, StartDate, EndDate, PickupLocationID, DropOffLocationID, Status_) VALUES ($carID, $userID, '$startDate', '$endDate', '$pickupLocationID', '$dropoffLocationID', 'Active')";
+    $reservation_query = "INSERT INTO Reservations (CarID, UserID, StartDate, EndDate, PickupLocationID, DropOffLocationID) VALUES ($carID, $userID, '$startDate', '$endDate', '$pickupLocationID', '$dropoffLocationID')";
     if ($conn->query($reservation_query) === TRUE) {
+        $reservationID = $conn->insert_id;
+        $paymentDate = date('Y-m-d');  // Current date as payment date
+        echo "Payment Date: $paymentDate";
+        $insert_payment_query = "INSERT INTO Payments (ReservationID, Amount, PaymentDate, PaymentMethod) VALUES ($reservationID, $amountPaid, '$paymentDate', '$paymentMethod')";
+
+        $conn->query($insert_payment_query);
         // Update car status to 'Rented' in Cars table
         $update_car_query = "UPDATE Cars SET Status_ = 'Rented' WHERE CarID = '$carID'";
         if ($conn->query($update_car_query) === TRUE) {
+
+            // Commit transaction
+            $conn->commit();
             // Success message and redirect
             echo "<script type='text/javascript'>
                     alert('Reservation successfully created.');
