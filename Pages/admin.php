@@ -253,17 +253,17 @@ function getDailyPayments($startDate, $endDate)
         <ul>
             <li>
                 <h4>All Reservations within a Specified Period</h4>
-                <form action="" method="get">
+                <form action="" method="post">
                     <input type="date" name="startDate" required>
                     <input type="date" name="endDate" required>
                     <button class="button" type="submit">Fetch Report</button>
                 </form>
                 <?php
-                if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['startDate']) && isset($_GET['endDate'])) {
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['startDate']) && isset($_POST['endDate'])) {
                     // Process the form submission and generate the report
-                    $startDate = $_GET['startDate'];
-                    $endDate = $_GET['endDate'];
-                    $reservations = getAllReservations($startDate, $endDate);
+                    $startDate = $_POST['startDate'];
+                    $endDate = $_POST['endDate'];
+                    $reservations = POSTAllReservations($startDate, $endDate);
 
                     // Display the report
                     echo "<div>";
@@ -276,18 +276,18 @@ function getDailyPayments($startDate, $endDate)
             </li>
             <li>
                 <h4>All Reservations of a Car within a Specified Period</h4>
-                <form action="" method="get">
+                <form action="" method="post">
                     <input type="text" name="carID" placeholder="Enter Car ID" required>
                     <input type="date" name="startDate" required>
                     <input type="date" name="endDate" required>
                     <button class="button" type="submit">Fetch Report</button>
                 </form>
                 <?php
-                if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['carID']) && isset($_GET['startDate']) && isset($_GET['endDate'])) {
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['carID']) && isset($_POST['startDate']) && isset($_POST['endDate'])) {
                     // Process the form submission and generate the report
-                    $carID = $_GET['carID'];
-                    $startDate = $_GET['startDate'];
-                    $endDate = $_GET['endDate'];
+                    $carID = $_POST['carID'];
+                    $startDate = $_POST['startDate'];
+                    $endDate = $_POST['endDate'];
                     $carReservations = getCarReservations($carID, $startDate, $endDate);
 
                     // Display the report
@@ -301,14 +301,14 @@ function getDailyPayments($startDate, $endDate)
             </li>
             <li>
                 <h4>Status of All Cars on a Specific Day</h4>
-                <form action="" method="get">
+                <form action="" method="post">
                     <input type="date" name="date" required>
                     <button class="button" type="submit">Fetch Report</button>
                 </form>
                 <?php
-                if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['date'])) {
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['date'])) {
                     // Process the form submission and generate the report
-                    $date = $_GET['date'];
+                    $date = $_POST['date'];
                     $carsStatus = getCarsStatus($date);
 
                     // Display the report
@@ -322,14 +322,14 @@ function getDailyPayments($startDate, $endDate)
             </li>
             <li>
                 <h4>All Reservations of a Specific Customer</h4>
-                <form action="" method="get">
+                <form action="" method="post">
                     <input type="text" name="customerID" placeholder="Enter Customer ID" required>
                     <button class="button" type="submit">Fetch Report</button>
                 </form>
                 <?php
-                if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['customerID'])) {
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['customerID'])) {
                     // Process the form submission and generate the report
-                    $customerID = $_GET['customerID'];
+                    $customerID = $_POST['customerID'];
                     $customerReservations = getCustomerReservations($customerID);
 
                     // Display the report
@@ -343,16 +343,16 @@ function getDailyPayments($startDate, $endDate)
             </li>
             <li>
                 <h4>Daily Payments within a Specific Period</h4>
-                <form action="" method="get">
+                <form action="" method="post">
                     <input type="date" name="startDate" required>
                     <input type="date" name="endDate" required>
                     <button class="button" type="submit">Fetch Report</button>
                 </form>
                 <?php
-                if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['startDate']) && isset($_GET['endDate'])) {
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['startDate']) && isset($_POST['endDate'])) {
                     // Process the form submission and generate the report
-                    $startDate = $_GET['startDate'];
-                    $endDate = $_GET['endDate'];
+                    $startDate = $_POST['startDate'];
+                    $endDate = $_POST['endDate'];
                     $dailyPayments = getDailyPayments($startDate, $endDate);
 
                     // Display the report
