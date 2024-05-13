@@ -16,8 +16,8 @@
 <body class="">
     <?php
     $host = 'localhost';
-    $username = 'FreePalestine';
-    $passwordDB = 'FreePalestine';
+    $username = "root";
+    $passwordDB = "";
     $database = 'car_dealership';
 
     // Create connection
