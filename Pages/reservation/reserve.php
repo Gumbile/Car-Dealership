@@ -38,19 +38,19 @@
             }
             ?>
             <form method="POST" action="reserve_submit.php">
-                <input type="hidden" name="carID" value="<?php echo $carID; ?>">
+            <input type="hidden" name="carID" value="<?php echo $carID; ?>">
                 <input type="hidden" name="locationID" value="<?php echo $locationID; ?>">
                 <div class="mb-3">
-                    <label for="startDate" class="form-label">Start Date</label>
+                    <label for="startDate" class="form-label">Pick-up Date</label>
                     <input type="date" class="form-control" id="startDate" name="startDate" required>
                 </div>
                 <div class="mb-3">
-                    <label for="endDate" class="form-label">End Date</label>
-                    <input type="date" class="form-control" id="endDate" name="endDate" required>
+                    <label for="endDate" class="form-label">Drop-off Date</label>
+                    <input type="date" class="form-control" id="endDate" name="endDate" required onchange="calculateTotal()">
                 </div>
                 <div class="mb-3">
-                    <label for="userName" class="form-label">Your Username</label>
-                    <input type="text" class="form-control" id="userName" name="userName" required>
+                    <label for="totalAmount" class="form-label">Total Amount</label>
+                    <input type="text" class="form-control" id="totalAmount" name="totalAmount" readonly>
                 </div>
                 <div class="mb-3">
                     <label for="dropoffLocation" class="form-label">Drop-off Location</label>
@@ -70,8 +70,26 @@
                         ?>
                     </select>
                 </div>
+                <div class="mb-3">
+                    <label for="paymentMethod" class="form-label">Payment Method</label>
+                    <select class="form-control" id="paymentMethod" name="paymentMethod" required>
+                        <option value="creditCard">Credit Card</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="debitCard">Debit Card</option>
+                        <option value="cash">Cash</option>
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary">Submit Reservation</button>
             </form>
+            <script>
+                function calculateTotal() {
+                    var startDate = new Date(document.getElementById('startDate').value);
+                    var endDate = new Date(document.getElementById('endDate').value);
+                    var baseRate = <?php echo $_GET['baseRate']; ?>;
+                    var days = (endDate - startDate) / (1000 * 60 * 60 * 24);
+                    document.getElementById('totalAmount').value = days * baseRate;
+                }
+            </script>
             <?php
         } else {
             echo "<p>Invalid request. Please go back and try again.</p>";
@@ -80,7 +98,6 @@
     </div>
 </body>
 </html>
-
 
 
 
