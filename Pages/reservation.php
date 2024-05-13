@@ -2,7 +2,19 @@
 session_start();
 include_once('db.php');
 
-// Your admin panel code here
+$isLoggedIn = isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'];
+if ($_SESSION['role'] != "Admin") {
+    header("Location: http://localhost/Car-Dealership/pages/user.php");
+}
+// Check for logout request
+if (isset($_GET['logout'])) {
+    // Perform logout operation
+    $_SESSION['isLoggedIn'] = false;
+    session_unset();
+    session_destroy();
+    header("Location: landing.php");
+    exit();
+}
 ?>
 
 
@@ -13,31 +25,30 @@ include_once('db.php');
     <title>Admin Panel</title>
     <link href="bootstrap-5.0.2-dist/bootstrap-5.0.2-dist/css/bootstrap-grid.min.css" rel="stylesheet">
     <link href="bootstrap-5.0.2-dist/bootstrap-5.0.2-dist//css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script></script>
     <link rel="stylesheet" href="../css/style.css">
-    
+
 </head>
 
 <body>
     <div class="sidebar">
-            <h2>Admin Panel</h2>
-            <ul class="nav flex-column">
-                <li class="nav-item"><a class="nav-link" href="admin.php">Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Cars</a></li>
-                <li class="nav-item"><a class="nav-link" href="Customer.php">Users</a></li>
-                <li class="nav-item"><a class="nav-link" href="reservation.php">Reservations</a></li>
-                <li class="nav-item"><a class="nav-link" href="?logout">Logout</a></li>
-            </ul>
-        </div>
+        <h2>Admin Panel</h2>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="admin.php">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Cars</a></li>
+            <li class="nav-item"><a class="nav-link" href="Customer.php">Users</a></li>
+            <li class="nav-item"><a class="nav-link" href="reservation.php">Reservations</a></li>
+            <li class="nav-item"><a class="nav-link" href="search.php">Search</a></li>
+            <li class="nav-item"><a class="nav-link" href="?logout">Logout</a></li>
+        </ul>
+    </div>
 
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-            }
-        </style>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
     <div class="content">
         <div class="container">
             <div class="row">
