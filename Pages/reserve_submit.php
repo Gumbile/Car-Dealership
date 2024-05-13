@@ -44,10 +44,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Commit transaction
             $conn->commit();
             // Success message and redirect
-            // echo "<script type='text/javascript'>
-            //         alert('Reservation successfully created.');
-            //         window.location.href = 'user.php';
-            //     </script>";
+            echo "<script type='text/javascript'>
+                    alert('Reservation successfully created.');
+                    window.location.href = 'user.php';
+                </script>";
         } else {
             echo "Error updating car status: " . $conn->error;
         }
