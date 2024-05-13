@@ -263,7 +263,7 @@ function getDailyPayments($startDate, $endDate)
                     // Process the form submission and generate the report
                     $startDate = $_POST['startDate'];
                     $endDate = $_POST['endDate'];
-                    $reservations = POSTAllReservations($startDate, $endDate);
+                    $reservations = getAllReservations($startDate, $endDate);
 
                     // Display the report
                     echo "<div>";
