@@ -34,6 +34,7 @@ CREATE TABLE Reservations (
     EndDate DATE NOT NULL,
     PickupLocationID INT NOT NULL,
     DropOffLocationID INT NOT NULL,
+    Status_ VARCHAR(50) NOT NULL,
     FOREIGN KEY (CarID) REFERENCES Cars(CarID),
     FOREIGN KEY (UserID) REFERENCES Users(UserID),
     FOREIGN KEY (PickupLocationID) REFERENCES Locations(LocationID),

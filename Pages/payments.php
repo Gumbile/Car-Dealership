@@ -19,6 +19,10 @@ $sql = "SELECT Model, Year_, PlateID, BaseRate FROM Cars
         WHERE Reservations.UserID = " . $_SESSION['user_id'] . "
         ORDER BY Reservations.StartDate DESC";
 $result = $conn->query($sql);
+$sqlPayments = "SELECT Amount, PaymentDate, PaymentMethod FROM Payments
+                INNER JOIN Reservations ON Payments.ReservationID = Reservations.ReservationID
+                WHERE Reservations.UserID = " . $_SESSION['user_id'];
+$resultPayments = $conn->query($sqlPayments);
 ?>
 
 <!DOCTYPE html>
@@ -74,6 +78,28 @@ echo "<tr><td>" . $row["Model"] . "</td><td>" . $row["Year_"] . "</td><td>" . $r
                     }
                 } else {
                     echo "<tr><td colspan='5'>No reserved cars found.</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+        <h2>Payment History</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Amount</th>
+                    <th>Payment Date</th>
+                    <th>Payment Method</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if ($resultPayments->num_rows > 0) {
+                    // Output data of each row
+                    while ($row = $resultPayments->fetch_assoc()) {
+                        echo "<tr><td>" . $row["Amount"] . "</td><td>" . $row["PaymentDate"] . "</td><td>" . $row["PaymentMethod"] . "</td></tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='3'>No payments found.</td></tr>";
                 }
                 ?>
             </tbody>

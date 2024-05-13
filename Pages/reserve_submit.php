@@ -29,7 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Insert reservation into Reservations table
-    $reservation_query = "INSERT INTO Reservations (CarID, UserID, StartDate, EndDate, PickupLocationID, DropOffLocationID) VALUES ($carID, $userID, '$startDate', '$endDate', '$pickupLocationID', '$dropoffLocationID')";
+    $reservation_query = "INSERT INTO Reservations (CarID, UserID, StartDate, EndDate, PickupLocationID, DropOffLocationID, Status_) VALUES ($carID, $userID, '$startDate', '$endDate', '$pickupLocationID', '$dropoffLocationID', 'Active')";
+    ;
     if ($conn->query($reservation_query) === TRUE) {
         $reservationID = $conn->insert_id;
         $paymentDate = date('Y-m-d');  // Current date as payment date
