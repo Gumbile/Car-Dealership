@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reserve Car</title>
-    <link rel="stylesheet" href="bootstrap5/css/bootstrap.min.css">
+    <link href="bootstrap-5.0.2-dist/bootstrap-5.0.2-dist/css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="bootstrap-5.0.2-dist/bootstrap-5.0.2-dist//css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://localhost/Car-Dealership/js/login.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    </script>
 </head>
+
 <body>
-    <?php include("templates/header.php");?>
+    <?php include ("templates/header.php"); ?>
     <div class="container">
         <h2>Reserve Car</h2>
         <?php
-        if(isset($_GET['model']) && isset($_GET['year']) && isset($_GET['plateID']) && isset($_GET['baseRate']) && isset($_GET['location']) && isset($_GET['status'])) {
-            echo "<p><strong>Model:</strong> ".$_GET['model']."</p>";
-            echo "<p><strong>Year:</strong> ".$_GET['year']."</p>";
-            echo "<p><strong>Plate ID:</strong> ".$_GET['plateID']."</p>";
-            echo "<p><strong>Base Rate:</strong> ".$_GET['baseRate']."</p>";
-            echo "<p><strong>Location:</strong> ".$_GET['location']."</p>";
-            echo "<p><strong>Status:</strong> ".$_GET['status']."</p>";
+        if (isset($_GET['model']) && isset($_GET['year']) && isset($_GET['plateID']) && isset($_GET['baseRate']) && isset($_GET['location']) && isset($_GET['status'])) {
+            echo "<p><strong>Model:</strong> " . $_GET['model'] . "</p>";
+            echo "<p><strong>Year:</strong> " . $_GET['year'] . "</p>";
+            echo "<p><strong>Plate ID:</strong> " . $_GET['plateID'] . "</p>";
+            echo "<p><strong>Base Rate:</strong> " . $_GET['baseRate'] . "</p>";
+            echo "<p><strong>Location:</strong> " . $_GET['location'] . "</p>";
+            echo "<p><strong>Status:</strong> " . $_GET['status'] . "</p>";
 
             // Connect to your database
             require 'config/db_connect.php';
@@ -37,21 +45,24 @@
                 exit(); // Exit if car not found
             }
             ?>
-            <form method="POST" action="reserve_submit.php">
-            <input type="hidden" name="carID" value="<?php echo $carID; ?>">
+            <form method="POST" action="reserve_submit.php" onsubmit="return validateForm()">
+                <input type="hidden" name="carID" value="<?php echo $carID; ?>">
                 <input type="hidden" name="locationID" value="<?php echo $locationID; ?>">
                 <div class="mb-3">
                     <label for="startDate" class="form-label">Pick-up Date</label>
-                    <input type="date" class="form-control" id="startDate" name="startDate" required>
+                    <input type="date" class="form-control" id="startDate" name="startDate" required
+                        onchange="calculateTotal()">
                 </div>
                 <div class="mb-3">
                     <label for="endDate" class="form-label">Drop-off Date</label>
-                    <input type="date" class="form-control" id="endDate" name="endDate" required onchange="calculateTotal()">
+                    <input type="date" class="form-control" id="endDate" name="endDate" required
+                        onchange="calculateTotal()">
                 </div>
                 <div class="mb-3">
                     <label for="totalAmount" class="form-label">Total Amount</label>
                     <input type="text" class="form-control" id="totalAmount" name="totalAmount" readonly>
                 </div>
+
                 <div class="mb-3">
                     <label for="dropoffLocation" class="form-label">Drop-off Location</label>
                     <select class="form-control" id="dropoffLocation" name="dropoffLocationID" required>
@@ -61,8 +72,8 @@
                         $locations_result = $conn->query($locations_query);
 
                         if ($locations_result->num_rows > 0) {
-                            while($location_row = $locations_result->fetch_assoc()) {
-                                echo "<option value='".$location_row['LocationID']."'>".$location_row['LocationName']."</option>";
+                            while ($location_row = $locations_result->fetch_assoc()) {
+                                echo "<option value='" . $location_row['LocationID'] . "'>" . $location_row['LocationName'] . "</option>";
                             }
                         } else {
                             echo "<option>Error: No locations found.</option>";
@@ -85,9 +96,22 @@
                 function calculateTotal() {
                     var startDate = new Date(document.getElementById('startDate').value);
                     var endDate = new Date(document.getElementById('endDate').value);
-                    var baseRate = <?php echo $_GET['baseRate']; ?>;
-                    var days = (endDate - startDate) / (1000 * 60 * 60 * 24);
-                    document.getElementById('totalAmount').value = days * baseRate;
+                    if (Date.parse(startDate) && Date.parse(endDate)) {
+                        var baseRate = <?php echo $_GET['baseRate']; ?>;
+                        var days = (endDate - startDate) / (1000 * 60 * 60 * 24);
+                        document.getElementById('totalAmount').value = days * baseRate;
+                    } else {
+                        document.getElementById('totalAmount').value = "";
+                    }
+                }
+
+                function validateForm() {
+                    var totalAmount = document.getElementById('totalAmount').value;
+                    if (totalAmount === "" || totalAmount <= 0) {
+                        alert('Please select valid dates and ensure total amount is calculated.');
+                        return false;
+                    }
+                    return true;
                 }
             </script>
             <?php
@@ -97,8 +121,5 @@
         ?>
     </div>
 </body>
+
 </html>
-
-
-
-

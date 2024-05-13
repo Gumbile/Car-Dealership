@@ -47,6 +47,7 @@
         $_SESSION['user_email'] = $row["Email"];
         $_SESSION['user_id'] = $row["UserID"];
         $_SESSION['FirstName'] = $row["FirstName"];
+        $_SESSION['username'] = $row["Username"];
         if ($row["Role_"] == "Admin") {
             header("Location: ../admin.php");
         } else {

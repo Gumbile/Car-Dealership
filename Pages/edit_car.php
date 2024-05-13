@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once('db.php');
+include_once ('db.php');
 
 if (isset($_GET['carid'])) {
     $carID = $_GET['carid'];
@@ -127,7 +127,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label>Plate ID:</label><br>
         <input type="text" name="plateid" value="<?php echo $car['PlateID']; ?>"><br><br>
         <label>Status:</label><br>
-        <input type="text" name="status" value="<?php echo $car['Status_']; ?>"><br><br>
+        <select name="status" class="form-control">
+            <option value="Available" <?php echo ($car['Status_'] == 'Available') ? 'selected' : ''; ?>>Available</option>
+            <option value="Rented" <?php echo ($car['Status_'] == 'Rented') ? 'selected' : ''; ?>>Rented</option>
+            <option value="Out of Service" <?php echo ($car['Status_'] == 'Out of Service') ? 'selected' : ''; ?>>Out of
+                Service</option>
+        </select><br><br>
         <label>Base Rate:</label><br>
         <input type="text" name="baserate" value="<?php echo $car['BaseRate']; ?>"><br><br>
         <label>Location ID:</label><br>
