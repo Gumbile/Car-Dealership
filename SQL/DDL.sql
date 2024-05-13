@@ -29,7 +29,7 @@ CREATE TABLE Reservations (
     DropOffLocationID INT NOT NULL,
     Status_ VARCHAR(100) NOT NULL,
     FOREIGN KEY (CarID) REFERENCES Cars(CarID),
-    FOREIGN KEY (UserID) REFERENCES Customers(UserID),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
     FOREIGN KEY (PickupLocationID) REFERENCES Locations(LocationID),
     FOREIGN KEY (DropOffLocationID) REFERENCES Locations(LocationID)
 );
