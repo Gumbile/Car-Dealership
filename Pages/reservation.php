@@ -44,7 +44,6 @@ include_once('db.php');
                 <div class="col">
 
                     <h3>All Reservations</h3>
-                    <a href="#" class="btn btn-success mb-3">Add New Reservation</a>
                     <table class="table">
                         <thead>
                             <tr>
