@@ -1,4 +1,4 @@
-CREATE SCHEMA Black
+CREATE SCHEMA car_dealership;
 CREATE TABLE Locations (
     LocationID INT AUTO_INCREMENT PRIMARY KEY,
     LocationName VARCHAR(255) NOT NULL,
