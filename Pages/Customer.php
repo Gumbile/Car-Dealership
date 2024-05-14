@@ -1,8 +1,21 @@
 <?php
 session_start();
-include_once ('db.php');
+include_once('db.php');
 
-// Your admin panel code here
+$isLoggedIn = isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'];
+
+if ($_SESSION['role'] != "Admin") {
+    header("Location: http://localhost/Car-Dealership/pages/user.php");
+}
+// Check for logout request
+if (isset($_GET['logout'])) {
+    // Perform logout operation
+    $_SESSION['isLoggedIn'] = false;
+    session_unset();
+    session_destroy();
+    header("Location: landing.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -113,6 +126,7 @@ include_once ('db.php');
             <li><a href="cars.php">Cars</a></li>
             <li><a href="#">Users</a></li>
             <li><a href="reservation.php">Reservations</a></li>
+            <li><a href="search.php">Search</a></li>
             <li><a href="?logout">Logout</a></li>
         </ul>
     </div>
@@ -131,7 +145,6 @@ include_once ('db.php');
                                 <th>Last Name</th>
                                 <th>Email</th>
                                 <th>Username</th>
-                                <th>Password</th>
                                 <th>Role</th>
                                 <th>Actions</th> <!-- Added column for actions -->
                             </tr>
@@ -149,8 +162,7 @@ include_once ('db.php');
                                     echo "<td>{$row['LastName']}</td>";
                                     echo "<td>{$row['Email']}</td>";
                                     echo "<td>{$row['Username']}</td>";
-                                    echo "<td>{$row['PASSWORD']}</td>"; // Corrected key to 'Password'
-                            
+
                                     echo "<td>{$row['Role_']}</td>";
                                     echo "<td>";
 

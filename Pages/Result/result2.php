@@ -16,8 +16,8 @@
 <body class="">
     <?php
     $host = 'localhost';
-    $username = 'FreePalestine';
-    $DBpassword = 'FreePalestine';
+    $username = 'root';
+    $DBpassword = '';
     $database = 'car_dealership';
 
     // Create connection
@@ -52,7 +52,13 @@
 
         if ($stmt->execute()) {
             $message = urlencode('Successful');
-            header("Location: ../landing.php?message={$message}");
+            session_start();
+            $_SESSION['user_email'] = $email;
+            $_SESSION['user_id'] = 0;
+            $_SESSION['FirstName'] = $fname;
+            $_SESSION['username'] = $lname;
+            header("Location: ../user.php");
+            
         } else {
             $message = urlencode('An Error has occurred');
             header("Location: ../Email.php?message={$message}");

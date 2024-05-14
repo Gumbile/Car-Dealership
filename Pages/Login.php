@@ -10,7 +10,7 @@
     <link href="bootstrap-5.0.2-dist/bootstrap-5.0.2-dist/css/bootstrap-grid.min.css" rel="stylesheet">
     <link href="bootstrap-5.0.2-dist/bootstrap-5.0.2-dist//css/bootstrap.min.css" rel="stylesheet">
     <link href="http://localhost/Car-Dealership/style/login.css" rel="stylesheet">
-    <title>Lab2 - Login</title>
+    <title>Login</title>
 </head>
 
 <body class="">
@@ -44,7 +44,7 @@
                             <div class="col"></div>
                             <div class="col-6">
                                 <form id="myForm" method="POST"
-                                    action="http://localhost:8012/nour%20repo/Car-Dealership/pages/Result/result.php">
+                                    action="http://localhost/Car-Dealership/pages/Result/result.php">
                                     <div class="formHolder">
                                         <div class="mb-3">
                                             <input placeholder="Email address" type="email" class="form-control"

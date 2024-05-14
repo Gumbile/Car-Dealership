@@ -1,285 +1,68 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <title>Lab2 - Trial</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Borel">
-    <link rel="stylesheet" href="http://localhost/Car-Dealership/style/landing.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Landing Page</title>
+<style>
+    body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.landing-page {
+    background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/40dc4d2b-3bda-4ed8-9fbf-690f3609c720/dgwq423-660a7366-978f-43c5-93ed-07bb2a537192.png/v1/fit/w_640,h_362,q_70,strp/carbs_lightning_mcqueen_meme_by_loudcasafanrico_dgwq423-375w-2x.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MzYyIiwicGF0aCI6IlwvZlwvNDBkYzRkMmItM2JkYS00ZWQ4LTlmYmYtNjkwZjM2MDljNzIwXC9kZ3dxNDIzLTY2MGE3MzY2LTk3OGYtNDNjNS05M2VkLTA3YmIyYTUzNzE5Mi5wbmciLCJ3aWR0aCI6Ijw9NjQwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.mZWkLRzcrRDrDrtRyGsbUexpWHHCFjpYOiwR9zan7OY');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    position: relative;
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.content {
+    text-align: center;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #337ab7;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #286090;
+}
+
+</style>
 </head>
-
 <body>
-    <nav>
-        <ul class="topnav" id="Bruh">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">News</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">About</a></li>
-            <li class="topnav-right"><a href="http://localhost/Car-Dealership/pages/Registration/Email.php">Sign
-                    Up</a>
-            </li>
-            <li class="topnav-right"><a href="http://localhost/Car-Dealership/pages/LogIn.php">Sign
-                    In</a></li>
-            <li class="dropdownIcon"><a href="" onclick="dropdownclick()">&#9776;</a></li>
-        </ul>
-    </nav>
-    <div class="container info">
-        <div class="row">
-            <div class="col-6">
-                <div class="leftside-col">
-                    <h1 class="page-header" style="font-size: 40px"> El-3atawla Dealership<br>
-                    </h1>
-                    <form>
-                        <h2><label>Username</label></h2>
-                        <input type="text" name="username" placeholder="Username" class="inputbox">
-                        <h2><label>Password</label></h2>
-                        <input minlength="8" type="password" name="password" placeholder="Password" class="inputbox">
-                        <br><input type="submit" value="Login" class="sub_but">
-                    </form>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="rightside-col">
-                    <iframe width="400" height="215" src="https://www.youtube.com/embed/sODmOi3AUv4?si=qDcMWBvRXG3k9z88"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
+<div class="landing-page">
+    <div class="overlay"></div>
+    <div class="content">
+        <h1>Welcome to Our Website</h1>
+        <p>Discover the world of cars with us!</p>
+        <a href="http://localhost/Car-Dealership/pages/Login.php" class="btn">Login</a>
+        <a href="http://localhost/Car-Dealership/pages/Registration/Email.php" class="btn">Sign Up</a>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h1 class="head"><strong> Our Services</strong></h1>
-            </div>
-        </div>
-    </div>
-    <div class="container container2">
-        <div class="row">
-            <div class="col-4">
-                <div class="box">
-                    <div class="pic">
-                        <img src="https://placehold.co/110x110">
-                    </div>
-                    <label class="filler">Easy Payment</label>
-                    <p>Sed ut perspiciatis unde omnis iste natus
-                        error sit voluptatem accusantium doloremque
-                        laudantium, totam rem aperiam, eaque ipsa
-                        quae ab illo inventore veritatis et quasi
-                        architecto beatae vitae dicta sunt explicabo.
-                        Nemo enim ipsam voluptatem quia voluptas sit
-                        aspernatur aut odit aut fugit, sed quia
-                        consequuntur magni dolores eos qui ratione
-                        voluptatem sequi nesciunt. Neque porro
-                        quisquam est, qui dolorem ipsum quia dolor
-                        sit amet, consectetur, adipisci velit, sed
-                        quia non numquam eius modi tempora incidunt ut
-                        labore et dolore magnam aliquam quaerat
-                        voluptatem. Ut enim ad minima veniam, quis
-                        nostrum exercitationem ullam corporis suscipit
-                        laboriosam, nisi ut aliquid ex ea commodi
-                        consequatur? Quis autem vel eum iure
-                        reprehenderit qui in ea voluptate velit esse
-                        quam nihil molestiae consequatur, vel illum qui
-                        dolorem eum fugiat quo voluptas nulla
-                        pariatur?</p>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="box">
-                    <div class="pic">
-                        <img src="https://placehold.co/110x110">
-                    </div>
-                    <label class="filler">Buy Freely</label>
-                    <p>Sed ut perspiciatis unde omnis iste natus
-                        error sit voluptatem accusantium doloremque
-                        laudantium, totam rem aperiam, eaque ipsa
-                        quae ab illo inventore veritatis et quasi
-                        architecto beatae vitae dicta sunt explicabo.
-                        Nemo enim ipsam voluptatem quia voluptas sit
-                        aspernatur aut odit aut fugit, sed quia
-                        consequuntur magni dolores eos qui ratione
-                        voluptatem sequi nesciunt. Neque porro
-                        quisquam est, qui dolorem ipsum quia dolor
-                        sit amet, consectetur, adipisci velit, sed
-                        quia non numquam eius modi tempora incidunt ut
-                        labore et dolore magnam aliquam quaerat
-                        voluptatem. Ut enim ad minima veniam, quis
-                        nostrum exercitationem ullam corporis suscipit
-                        laboriosam, nisi ut aliquid ex ea commodi
-                        consequatur? Quis autem vel eum iure
-                        reprehenderit qui in ea voluptate velit esse
-                        quam nihil molestiae consequatur, vel illum qui
-                        dolorem eum fugiat quo voluptas nulla
-                        pariatur?</p>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="box">
-                    <div class="pic">
-                        <img src="https://placehold.co/110x110">
-                    </div>
-                    <label class="filler">Top Quality</label>
-                    <p>Sed ut perspiciatis unde omnis iste natus
-                        error sit voluptatem accusantium doloremque
-                        laudantium, totam rem aperiam, eaque ipsa
-                        quae ab illo inventore veritatis et quasi
-                        architecto beatae vitae dicta sunt explicabo.
-                        Nemo enim ipsam voluptatem quia voluptas sit
-                        aspernatur aut odit aut fugit, sed quia
-                        consequuntur magni dolores eos qui ratione
-                        voluptatem sequi nesciunt. Neque porro
-                        quisquam est, qui dolorem ipsum quia dolor
-                        sit amet, consectetur, adipisci velit, sed
-                        quia non numquam eius modi tempora incidunt ut
-                        labore et dolore magnam aliquam quaerat
-                        voluptatem. Ut enim ad minima veniam, quis
-                        nostrum exercitationem ullam corporis suscipit
-                        laboriosam, nisi ut aliquid ex ea commodi
-                        consequatur? Quis autem vel eum iure
-                        reprehenderit qui in ea voluptate velit esse
-                        quam nihil molestiae consequatur, vel illum qui
-                        dolorem eum fugiat quo voluptas nulla
-                        pariatur?</p>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <div class="learnMore"><button>Learn More</button></div>
-        </div>
-    </div>
-    <hr>
-    <div class="container">
-        <div class="row">
-            <div class="col-7">
-                <article>
-                    <p>
-                        Sed ut perspiciatis unde omnis iste natus
-                        error sit voluptatem accusantium doloremque
-                        laudantium, totam rem aperiam, eaque ipsa
-                        quae ab illo inventore veritatis et quasi
-                        architecto beatae vitae dicta sunt explicabo.
-                        Nemo enim ipsam voluptatem quia voluptas sit
-                        aspernatur aut odit aut fugit, sed quia
-                        consequuntur magni dolores eos qui ratione
-                        voluptatem sequi nesciunt. Neque porro
-                        quisquam est, qui dolorem ipsum quia dolor
-                        sit amet, consectetur, adipisci velit, sed
-                        quia non numquam eius modi tempora incidunt ut
-                        labore et dolore magnam aliquam quaerat
-                        voluptatem. Ut enim ad minima veniam, quis
-                        nostrum exercitationem ullam corporis suscipit
-                        laboriosam, nisi ut aliquid ex ea commodi
-                        consequatur? Quis autem vel eum iure
-                        reprehenderit qui in ea voluptate velit esse
-                        quam nihil molestiae consequatur, vel illum qui
-                        dolorem eum fugiat quo voluptas nulla
-                        pariatur?<br>
-                        Sed ut perspiciatis unde omnis iste natus
-                        error sit voluptatem accusantium doloremque
-                        laudantium, totam rem aperiam, eaque ipsa
-                        quae ab illo inventore veritatis et quasi
-                        architecto beatae vitae dicta sunt explicabo.
-                        Nemo enim ipsam voluptatem quia voluptas sit
-                        aspernatur aut odit aut fugit, sed quia
-                        consequuntur magni dolores eos qui ratione
-                        voluptatem sequi nesciunt. Neque porro
-                        quisquam est, qui dolorem ipsum quia dolor
-                        sit amet, consectetur, adipisci velit, sed
-                        quia non numquam eius modi tempora incidunt ut
-                        labore et dolore magnam aliquam quaerat
-                        voluptatem. Ut enim ad minima veniam, quis
-                        nostrum exercitationem ullam corporis suscipit
-                        laboriosam, nisi ut aliquid ex ea commodi
-                        consequatur? Quis autem vel eum iure
-                        reprehenderit qui in ea voluptate velit esse
-                        quam nihil molestiae consequatur, vel illum qui
-                        dolorem eum fugiat quo voluptas nulla
-                        pariatur?
-                    </p>
-                </article>
-            </div>
-            <div class="col-5">
-                <div class="pic2">
-                    <img src="https://placehold.co/500x300">
-                </div>
-            </div>
-        </div>
-    </div>
-    <footer class="footsy">
-        <div class="row">
-            <div class="col-3">
-                <h1>Company</h1>
-                <ul>
-                    <li>About</li>
-                    <li>Careers</li>
-                    <li>Blog</li>
-                </ul>
-            </div>
-            <div class="col-3">
-                <h1>Company</h1>
-                <ul>
-                    <li>About</li>
-                    <li>Careers</li>
-                    <li>Blog</li>
-                </ul>
-            </div>
-            <div class="col-3">
-                <h1>Company</h1>
-                <ul>
-                    <li>About</li>
-                    <li>Careers</li>
-                    <li>Blog</li>
-                </ul>
-            </div>
-            <div class="col-3">
-                <h1>Company</h1>
-                <ul>
-                    <li>About</li>
-                    <li>Careers</li>
-                    <li>Blog</li>
-                </ul>
-            </div>
-        </div>
-    </footer>
-
-
-
-
-
-
-
-
-
-    <script>
-        function dropdownclick() {
-            var x = document.getElementById("Bruh");
-            if (x.className === "topnav") {
-                x.className += " responsive";
-                //Change topnav to topnav.resposinve
-            } else {
-                x.className = "topnav"
-            }
-        }
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const message = urlParams.get('message');
-            if (message) {
-                alert(message)
-
-                urlParams.delete('message');
-
-                const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '');
-
-                history.pushState({}, '', newUrl);
-            }
-        });
-    </script>
+</div>
 </body>
-
 </html>

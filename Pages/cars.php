@@ -1,7 +1,19 @@
 <?php
 session_start();
 include_once('db.php');
-
+$isLoggedIn = isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'];
+if ($_SESSION['role'] != "Admin") {
+    header("Location: http://localhost/Car-Dealership/pages/user.php");
+}
+// Check for logout request
+if (isset($_GET['logout'])) {
+    // Perform logout operation
+    $_SESSION['isLoggedIn'] = false;
+    session_unset();
+    session_destroy();
+    header("Location: landing.php");
+    exit();
+}
 // Your admin panel code here
 ?>
 
@@ -10,143 +22,41 @@ include_once('db.php');
 
 <head>
     <title>Admin Panel</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        .sidebar {
-            width: 250px;
-            height: 100%;
-            background-color: #333;
-            padding-top: 20px;
-            position: fixed;
-            top: 0;
-            left: 0;
-        }
-
-        .sidebar h2 {
-            color: #fff;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            padding: 10px;
-        }
-
-        .sidebar ul li a {
-            color: #fff;
-            text-decoration: none;
-            display: block;
-        }
-
-        .sidebar ul li a:hover {
-            background-color: #555;
-        }
-
-        .content {
-            margin-left: 250px;
-            padding: 20px;
-        }
-
-        /* Improved styling for table */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        th,
-        td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        /* Styling for buttons */
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-
-        .btn-primary {
-            background-color: #337ab7;
-        }
-
-        .btn-danger {
-            background-color: #d9534f;
-        }
-
-        .btn-success {
-            background-color: #5cb85c;
-        }
-
-        .btn:hover {
-            background-color: #45a049;
-        }
-
-        .search-form {
-            margin-bottom: 20px;
-        }
-
-        .search-form input[type="text"] {
-            padding: 5px;
-            width: 200px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-
-        .search-form input[type="submit"] {
-            padding: 5px 10px;
-            background-color: #337ab7;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-    </style>
+    <link href="bootstrap-5.0.2-dist/bootstrap-5.0.2-dist/css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="bootstrap-5.0.2-dist/bootstrap-5.0.2-dist//css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script></script>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
     <div class="sidebar">
         <h2>Admin Panel</h2>
-        <ul>
-            <li><a href="admin.php">Dashboard</a></li>
-            <li><a href="#">Cars</a></li>
-            <li><a href="Customer.php">Users</a></li>
-            <li><a href="reservation.php">Reservations</a></li>
-            <li><a href="?logout">Logout</a></li>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="admin.php">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Cars</a></li>
+            <li class="nav-item"><a class="nav-link" href="Customer.php">Users</a></li>
+            <li class="nav-item"><a class="nav-link" href="reservation.php">Reservations</a></li>
+            <li class="nav-item"><a class="nav-link" href="search.php">Search</a></li>
+            <li class="nav-item"><a class="nav-link" href="?logout">Logout</a></li>
         </ul>
     </div>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+
     <div class="content">
         <div class="container">
             <div class="row">
                 <div class="col">
 
                     <h3>All Cars</h3>
-                    <form class="search-form" method="GET">
-                        <input type="text" name="search" placeholder="Search...">
-                        <input type="submit" value="Search">
-                    </form>
-                    <a href="#" class="btn btn-success mb-3">Add New Car</a>
-                    <table class="table">
+
+                    <a href="http://localhost/Car-Dealership/pages/add_car.php" class="btn btn-success mb-3">Add New Car</a>
+                    <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>CarID</th>
@@ -161,7 +71,6 @@ include_once('db.php');
                         </thead>
                         <tbody>
                             <?php
-                            // Assume $conn is your database connection
                             $query = "SELECT Cars.CarID,Cars.Model, Cars.Year_, Cars.PlateID, Cars.Status_, Cars.BaseRate, Locations.LocationName FROM Cars NATURAL JOIN Locations";
                             $result = mysqli_query($conn, $query);
 
@@ -177,29 +86,70 @@ include_once('db.php');
                                     // Add conditional statements to vary colors based on status
                                     $status = $row['Status_'];
                                     if ($status == 'Available') {
-                                        echo "<span style='background-color: green; color: white; padding: 5px;'>$status</span>";
+                                        echo "<span class='badge bg-success'>$status</span>";
                                     } elseif ($status == 'Rented') {
-                                        echo "<span style='background-color: orange; color: white; padding: 5px;'>$status</span>";
+                                        echo "<span class='badge bg-warning text-dark'>$status</span>";
                                     } elseif ($status == 'Out of Service') {
-                                        echo "<span style='background-color: red; color: white; padding: 5px;'>$status</span>";
+                                        echo "<span class='badge bg-danger'>$status</span>";
                                     }
 
                                     echo "</td>";
                                     echo "<td>{$row['BaseRate']}</td>";
                                     echo "<td>{$row['LocationName']}</td>";
                                     echo "<td>";
-                                    echo "<a href='edit_car.php?carid={$row['CarID']}' class='btn btn-primary'>Update</a>";
-                                    echo "<a href='delete_car.php?carid={$row['CarID']}' class='btn btn-danger'>Delete</a>";
+
+                                    // Check if the car is not reserved
+                                    if ($status != 'Rented') {
+                                        echo "<a href='edit_car.php?carid={$row['CarID']}' class='btn btn-primary'>Update</a>";
+                                        echo "<button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#confirmDeleteModal' data-carid='{$row['CarID']}'>Delete</button>";
+                                    }
+
                                     echo "</td>";
                                     echo "</tr>";
                                 }
                             } else {
-                                echo "<tr><td colspan='7'>No cars found</td></tr>";
+                                echo "<tr><td colspan='8'>No cars found</td></tr>";
                             }
                             ?>
                         </tbody>
                     </table>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this car?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteButton">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // JavaScript to handle deletion
+        document.addEventListener('DOMContentLoaded', function() {
+            var confirmDeleteModal = document.getElementById('confirmDeleteModal');
+            confirmDeleteModal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget;
+                var carID = button.getAttribute('data-carid');
+                var confirmDeleteButton = confirmDeleteModal.querySelector('#confirmDeleteButton');
+                confirmDeleteButton.addEventListener('click', function() {
+                    // Perform deletion
+                    window.location.href = 'delete_car.php?carid=' + carID;
+                });
+            });
+        });
+    </script>
+
+</body>
 
 </html>
