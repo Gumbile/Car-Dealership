@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Hash the password
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $hashedPassword = md5($password);
 
     // Insert new user into the database
     $insertQuery = "INSERT INTO Users (FirstName, LastName, Email, Username, Password, Role_) 
