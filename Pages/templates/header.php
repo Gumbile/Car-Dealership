@@ -2,6 +2,9 @@
 session_start();
 
 $username = $_SESSION['username'];
+if(!isset($_SESSION['user_id'])){
+    header("Location: http://localhost/Car-Dealership/pages/Login.php");
+}
 ?>
 
 <head>
@@ -35,6 +38,7 @@ $username = $_SESSION['username'];
             </ul>
             <p class="navbar-text" style="margin-left: 5px;">Welcome: <?php
             echo $username ?></p>
+            
         </div>
     </div>
 </nav>

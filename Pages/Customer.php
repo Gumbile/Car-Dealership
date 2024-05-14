@@ -3,6 +3,7 @@ session_start();
 include_once('db.php');
 
 $isLoggedIn = isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'];
+
 if ($_SESSION['role'] != "Admin") {
     header("Location: http://localhost/Car-Dealership/pages/user.php");
 }
