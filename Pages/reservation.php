@@ -65,7 +65,7 @@ if (isset($_GET['logout'])) {
                                 <th>End Date</th>
                                 <th>Pickup LocationID</th>
                                 <th>Drop-off LocationID</th>
-                                <th>Actions</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -85,10 +85,7 @@ if (isset($_GET['logout'])) {
                                     echo "<td>{$row['PickupLocationID']}</td>";
                                     echo "<td>{$row['DropOffLocationID']}</td>";
 
-                                    echo "<td>";
-                                    echo "<a href='edit_reservation.php?reservationid={$row['ReservationID']}' class='btn btn-primary'>Update</a>";
-                                    echo "<a href='delete_reservation.php?reservationid={$row['ReservationID']}' class='btn btn-danger'>Delete</a>";
-                                    echo "</td>";
+
                                     echo "</tr>";
                                 }
                             } else {
